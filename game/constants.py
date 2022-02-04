@@ -19,4 +19,4 @@ PLAYER_IMAGES = {
     "yellow": DIRROOT + "/images/player_yellow.png"
 }
 
-SERVER_ADDRESS_PORT   = ("127.0.0.1", 20001)
+SERVER_ADDRESS_PORT   = ("192.168.137.1", 20001)

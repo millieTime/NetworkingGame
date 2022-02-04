@@ -2,7 +2,7 @@ import socket
 import pickle
 from game import constants
 
-localIP     = socket.gethostbyname( '0.0.0.0' )
+localIP     = ''#socket.gethostbyname( '0.0.0.0' )
 localPort   = 20001
 bufferSize  = 1024
 
@@ -23,14 +23,13 @@ while(True):
     address = bytesAddressPair[1]
     
     if address not in clients:
-        print("New client connected, returning. . .")
+        print("New client connected, returning name", constants.PLAYER_NAMES[name_incr])
         # It's a new client requesting a name
         bytes_to_send = pickle.dumps(constants.PLAYER_NAMES[name_incr])
         name_incr += 1
         UDPServerSocket.sendto(bytes_to_send, address)
         clients.add(address)
     else:
-        print("Return client connected, returning. . .")
         # It's an update of a player's location, store it and broadcast all.
         str_address = f"{address}"
         messages[str_address] = message
