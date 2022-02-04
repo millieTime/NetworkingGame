@@ -27,7 +27,7 @@ class TestObject:
         return self.name
 
 def main2():
-    serverAddressPort   = ("10.244.197.171", 20001)
+    serverAddressPort   = ("192.168.137.1", 20001)
 
     # Create a UDP socket at client side
     s_hand = SocketHandler.SocketHandler(serverAddressPort)
