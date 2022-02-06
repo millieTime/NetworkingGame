@@ -14,16 +14,10 @@ class GameView(arcade.View):
         self.window = window
         for name in constants.PLAYER_NAMES:
             self.on_call_players[name] = Player(PlayerData(name))
-        print("Set up window, setting up sock hand")
         self.sock_hand = SocketHandler(constants.SERVER_ADDRESS_PORT)
         # Get a name
-        print("Sending Request to server")
         self.sock_hand.send_to_server(pickle.dumps("Name Requested"))
-        self.sock_hand.start()
-        print("awaiting response. . .")
-        while not self.sock_hand.has_new_data:
-            pass
-        print("response received")
+        self.sock_hand.run_once()
         bytes_received = self.sock_hand.get_data()
         unpickled_received = pickle.loads(bytes_received)
         if unpickled_received not in constants.PLAYER_NAMES:
@@ -31,8 +25,9 @@ class GameView(arcade.View):
             self.sock_hand.set_done(True)
             assert(False)
         else:
-            print("Player obj received")
+            print("Name received:", unpickled_received)
             self.player = Player(PlayerData(unpickled_received))
+        self.sock_hand.start()
 
     def on_show(self):
         self.setup()

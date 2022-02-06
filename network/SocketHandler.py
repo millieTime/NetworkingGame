@@ -20,12 +20,15 @@ class SocketHandler(threading.Thread):
     def run(self):
         # Begin monitoring the port.
         while not self.is_done:
-            msg, _ = self.UDPClientSocket.recvfrom(BUFFER_SIZE)
-            with self.data_lock:
-                self.most_recent_data = msg
-                if self.most_recent_data == b'END OF LINE':
-                    self.is_done = True
-                self.has_new_data = True
+            self.run_once()
+
+    def run_once(self):
+        msg, _ = self.UDPClientSocket.recvfrom(BUFFER_SIZE)
+        with self.data_lock:
+            self.most_recent_data = msg
+            if self.most_recent_data == b'END OF LINE':
+                self.is_done = True
+            self.has_new_data = True
     
     def get_data(self):
         # Returns the most up-to-date information.
