@@ -21,8 +21,7 @@ class SocketHandler(threading.Thread):
         # Begin monitoring the port.
         while not self.is_done:
             self.run_once()
-            
-    
+
     def run_once(self):
         msg, _ = self.UDPClientSocket.recvfrom(BUFFER_SIZE)
         with self.data_lock:
@@ -30,7 +29,6 @@ class SocketHandler(threading.Thread):
             if self.most_recent_data == b'END OF LINE':
                 self.is_done = True
             self.has_new_data = True
-
     
     def get_data(self):
         # Returns the most up-to-date information.
