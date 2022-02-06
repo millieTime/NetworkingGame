@@ -8,6 +8,7 @@ class GameView(arcade.View):
     keys_down = {"left": False, "up": False, "down": False, "right": False}
     player = None
     on_call_players = {}
+    time_since_send = 0
 
     def __init__(self, window):
         super().__init__()
@@ -45,8 +46,10 @@ class GameView(arcade.View):
         elif self.keys_down["down"] and not self.keys_down["up"]:
             self.player.move_down()
 
-        pickled_obj = pickle.dumps(self.player.get_player_data())
-        self.sock_hand.send_to_server(pickled_obj)
+        self.time_since_send += elapsed_time
+        if self.time_since_send > .05:
+            pickled_obj = pickle.dumps(self.player.get_player_data())
+            self.sock_hand.send_to_server(pickled_obj)
 
 
     def on_draw(self):

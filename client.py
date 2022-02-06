@@ -74,8 +74,6 @@ def main2():
             print(test_object.get_name(), test_object.get_so_sum())
 
 
-
-
 ######################## SETTING UP FOR THE GAME
 from game import constants
 from game.game_view import GameView
