@@ -26,7 +26,7 @@ This program provides the framework for a game where multiple client programs on
 
 This video provides a demonstration and walks through the code as of 2/6/2022.
 
-[Demo Video](link)
+[Demo Video](https://youtu.be/lFiUlTi1qhM)
 
 ## Network Communication
 
